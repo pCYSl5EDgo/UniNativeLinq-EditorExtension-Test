@@ -13,47 +13,41 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - run: mkdir artifact_Concat
-    - run: mkdir Concat
     - run: |
-        cd Concat
+        mkdir artifact_$TYPE
+        mkdir $TYPE
+        cd $TYPE
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
-    - run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
-    - run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd $TYPE/UniNativeLinq-EditorExtension-Test
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         rm -rf Assets/Tests
         rm -rf Assets/UNL/Settings
-        cp -r Data~/Concat/Tests Assets/Tests
-        cp -r Data~/Concat/Settings Assets/UNL/Settings
+        cp -r Data~/$TYPE/Tests Assets/Tests
+        cp -r Data~/$TYPE/Settings Assets/UNL/Settings
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact/results_$TYPE.xml || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
-    
-    - run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
-      
-    - run: 
-    - run: 
+        TYPE: Concat
+
     - uses: actions/upload-artifact@master
       with:
-        name: test_results_Concat
-        path: artifact_Concat
+        name: test_results
+        path: artifact
 
   reportResultJob:
     runs-on: ubuntu-latest
     needs: editorTestJob
     steps:
-    - run: mkdir artifact_Concat
+    - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results_Concat
-        path: artifact_Concat
+        name: test_results
+        path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
       with:
@@ -61,9 +55,8 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        cd ..
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
+        dotnet run ../artifact/results_Concat.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
         exit $INPUT_RESULT
       env:
         SLACK: ${{ secrets.slackhook }}
