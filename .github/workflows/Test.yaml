@@ -36,7 +36,9 @@ jobs:
     
     - run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll
+        ls -l
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
+        ls -l
     
     - run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
