@@ -38,8 +38,11 @@ jobs:
     - run: |
         cd ${{ matrix.test-name }}
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
+    - run: |
+        cd ${{ matrix.test-name }}
         git checkout $GITHUB_SHA
-        cd UniNativeLinq-EditorExtension-Test
+    - run: |
+        cd ${{ matrix.test-name }}/UniNativeLinq-EditorExtension-Test
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         rm -rf Assets/Tests
         rm -rf Assets/UNL/Settings
