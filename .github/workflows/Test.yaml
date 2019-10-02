@@ -23,29 +23,34 @@ jobs:
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
-    - run: |
+    - name: Copy Files
+      run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
-        openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         rm -rf Assets/Tests
         rm -rf Assets/UNL/Settings
         cp -r Data~/Concat/Tests Assets/Tests
         cp -r Data~/Concat/Settings Assets/UNL/Settings
+
+    - name: Manual License Activation
+      run: |
+        cd Concat/UniNativeLinq-EditorExtension-Test
+        openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
     
-    - run: |
+    - name: Create DLL
+      run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
-        ls -l
+        ls -l Assets
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
-        ls -l
+        ls -l Assets
     
-    - run: |
+    - name: Run Test
+      run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
         /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
-      
-    - run: 
-    - run: 
+
     - uses: actions/upload-artifact@master
       with:
         name: test_results_Concat
