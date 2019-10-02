@@ -7,6 +7,7 @@ public static class ExecuteMethods
 {
     public static void CreateDll()
     {
+        Console.WriteLine("THIS IS A TEST");
         var settingWindow = EditorWindow.GetWindow<SettingWindow>();
         if(settingWindow is null)
             EditorApplication.Exit(12);
