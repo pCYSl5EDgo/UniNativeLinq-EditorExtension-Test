@@ -26,12 +26,13 @@ jobs:
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
     
-    - name: Copy Files
+    - name: Remove Test Folder & Copy Files
       run: |
         cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        cp -f Tests.meta ../..
         rm -rf Tests
+        rm -f Tests.meta
         rm -rf UNL/Settings
-        cp -r ../Data~/Concat/Tests Tests
         cp -r ../Data~/Concat/Settings UNL/Settings
 
     - name: Manual License Activation
@@ -47,6 +48,11 @@ jobs:
         cd Concat/UniNativeLinq-EditorExtension-Test
         ls -l Assets
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll
+
+    - name: Copy Tests Folder
+      run: |
+        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        cp -r ../Data~/Concat/Tests Tests
     
     - name: Run Test
       run: |
