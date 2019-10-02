@@ -31,9 +31,13 @@ jobs:
         cp -r Data~/Concat/Tests Assets/Tests
         cp -r Data~/Concat/Settings Assets/UNL/Settings
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
+    
+    - run: |
+        cd Concat/UniNativeLinq-EditorExtension-Test
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
+      
     - run: 
     - run: 
     - uses: actions/upload-artifact@master
