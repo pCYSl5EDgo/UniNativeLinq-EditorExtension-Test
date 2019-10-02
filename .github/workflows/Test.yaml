@@ -51,7 +51,7 @@ jobs:
 
     - name: Copy Tests Folder
       run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        cd Concat/UniNativeLinq-EditorExtension-Test/Assets || exit 0
         cp -r ../Data~/Concat/Tests Tests
     
     - name: Run Test
