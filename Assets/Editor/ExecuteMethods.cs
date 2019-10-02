@@ -13,7 +13,7 @@ public static class ExecuteMethods
         {
             settingWindow = EditorWindow.GetWindow<SettingWindow>();            
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             Console.WriteLine(e.ToString());
             throw;
