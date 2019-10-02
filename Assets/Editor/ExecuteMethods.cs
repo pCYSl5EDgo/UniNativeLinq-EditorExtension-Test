@@ -9,8 +9,10 @@ public static class ExecuteMethods
     {
         Console.WriteLine("THIS IS A TEST");
         var settingWindow = EditorWindow.GetWindow<SettingWindow>();
-        if(settingWindow is null)
+        if(settingWindow is null){
+            Console.WriteLine("NULL!!!");
             EditorApplication.Exit(12);
+        }
         settingWindow.Initialize();
         settingWindow.Execute();
     }
