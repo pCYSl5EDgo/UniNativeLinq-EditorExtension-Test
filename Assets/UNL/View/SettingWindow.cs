@@ -39,6 +39,7 @@ namespace UniNativeLinq.Editor
 
         public void Initialize()
         {
+            Console.WriteLine("INITIALIZE");
             Helper.Initialize();
             T1[] Gets<T0, T1>() where T0 : Object where T1 : class
             {
@@ -74,6 +75,7 @@ namespace UniNativeLinq.Editor
 
             settings = GlobalSettings.Instance;
 
+            Console.WriteLine("INITIALIZE 2");
             InitializeExtensionMethodsGenerator();
         }
 
@@ -90,6 +92,7 @@ namespace UniNativeLinq.Editor
             {
                 RegisterEachSingleApi(api, list);
             }
+            Console.WriteLine("INITIALIZE 3");
             ExtensionMethodGenerators = list.ToArray();
         }
 
