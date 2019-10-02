@@ -22,7 +22,6 @@ jobs:
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
-        cd $TYPE/UniNativeLinq-EditorExtension-Test
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         rm -rf Assets/Tests
         rm -rf Assets/UNL/Settings
