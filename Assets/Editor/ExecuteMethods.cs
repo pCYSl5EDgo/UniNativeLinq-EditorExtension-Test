@@ -8,7 +8,16 @@ public static class ExecuteMethods
     public static void CreateDll()
     {
         Console.WriteLine("THIS IS A TEST");
-        var settingWindow = EditorWindow.GetWindow<SettingWindow>();
+        SettingWindow settingWindow = default;
+        try
+        {
+            settingWindow = EditorWindow.GetWindow<SettingWindow>();            
+        }
+        catch (System.Exception)
+        {
+            Console.WriteLine(e.ToString());
+            throw;
+        }
         if(settingWindow is null){
             Console.WriteLine("NULL!!!");
             EditorApplication.Exit(12);
