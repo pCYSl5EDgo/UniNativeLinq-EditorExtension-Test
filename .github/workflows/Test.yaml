@@ -14,10 +14,12 @@ jobs:
         unity-tag: [2018.4.9f1]
     steps:
     - run: |
-        mkdir artifact_$TYPE
+        mkdir artifact
         mkdir $TYPE
         cd $TYPE
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
+      env:
+        TYPE: Concat
     - run: |
         cd $TYPE/UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
@@ -30,10 +32,10 @@ jobs:
         cp -r Data~/$TYPE/Settings Assets/UNL/Settings
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_$TYPE/results.xml || exit 0
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact/results_$TYPE.xml || exit 0
       env:
-        CYPHER_KEY: ${{ secrets.cypherkey }}
         TYPE: Concat
+        CYPHER_KEY: ${{ secrets.cypherkey }}
 
     - uses: actions/upload-artifact@master
       with:
