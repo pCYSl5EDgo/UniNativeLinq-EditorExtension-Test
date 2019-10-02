@@ -12,85 +12,44 @@ jobs:
     strategy:
       matrix:
         unity-tag: [2018.4.9f1]
-        test-name:
-        - Concat
-        - DefaultIfEmpty
-        - Distinct
-        - Except
-        - GroupBy
-        - GroupJoin
-        - Intersect
-        - Join
-        - MinMax
-        - OrderBy
-        - Reverse
-        - Select
-        - SelectMany
-        - SingleApi
-        - SkipTake
-        - Union
-        - Where
-        - Zip
-
     steps:
-    - run: mkdir artifact_${{ matrix.test-name }}
-    - run: mkdir ${{ matrix.test-name }}
+    - run: mkdir artifact_Concat
+    - run: mkdir Concat
     - run: |
-        cd ${{ matrix.test-name }}
+        cd Concat
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
     - run: |
-        cd ${{ matrix.test-name }}/UniNativeLinq-EditorExtension-Test
+        cd Concat/UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
     - run: |
-        cd ${{ matrix.test-name }}/UniNativeLinq-EditorExtension-Test
+        cd Concat/UniNativeLinq-EditorExtension-Test
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         rm -rf Assets/Tests
         rm -rf Assets/UNL/Settings
-        cp -r Data~/${{ matrix.test-name }}/Tests Assets/Tests
-        cp -r Data~/${{ matrix.test-name }}/Settings Assets/UNL/Settings
+        cp -r Data~/Concat/Tests Assets/Tests
+        cp -r Data~/Concat/Settings Assets/UNL/Settings
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_${{ matrix.test-name }}/results.xml || exit 0
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
     - run: 
     - run: 
     - uses: actions/upload-artifact@master
       with:
-        name: test_results_${{ matrix.test-name }}
-        path: artifact_${{ matrix.test-name }}
+        name: test_results_Concat
+        path: artifact_Concat
 
   reportResultJob:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test-name:
-        - Concat
-        - DefaultIfEmpty
-        - Distinct
-        - Except
-        - GroupBy
-        - GroupJoin
-        - Intersect
-        - Join
-        - MinMax
-        - OrderBy
-        - Reverse
-        - Select
-        - SelectMany
-        - SingleApi
-        - SkipTake
-        - Union
-        - Where
-        - Zip
     needs: editorTestJob
     steps:
-    - run: mkdir artifact_${{ matrix.test-name }}
+    - run: mkdir artifact_Concat
     - uses: actions/download-artifact@master
       with:
-        name: test_results_${{ matrix.test-name }}
-        path: artifact_${{ matrix.test-name }}
+        name: test_results_Concat
+        path: artifact_Concat
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
       with:
@@ -98,7 +57,7 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run ../artifact_${{ matrix.test-name }}/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
         cd ..
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
         exit $INPUT_RESULT
