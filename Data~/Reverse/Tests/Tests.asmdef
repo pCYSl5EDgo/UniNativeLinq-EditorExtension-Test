@@ -1,0 +1,20 @@
+{
+    "name": "Tests",
+    "references": [
+        "TestSupport"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "UniNativeLinqDll.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
