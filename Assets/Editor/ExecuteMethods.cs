@@ -12,7 +12,7 @@ public static class ExecuteMethods
         try
         {
             Console.WriteLine("DECL");
-            settingWindow = EditorWindow.GetWindow<SettingWindow>();            
+            settingWindow = new SettingWindow();
             Console.WriteLine("DECL 2");
         }
         catch (System.Exception e)
