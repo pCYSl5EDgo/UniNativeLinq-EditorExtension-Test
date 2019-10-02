@@ -13,7 +13,15 @@ public static class ExecuteMethods
             Console.WriteLine("NULL!!!");
             EditorApplication.Exit(12);
         }
-        settingWindow.Initialize();
-        settingWindow.Execute();
+        try
+        {
+            settingWindow.Initialize();
+            settingWindow.Execute();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.ToString());
+            throw;
+        }
     }
 }
