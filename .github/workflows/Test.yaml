@@ -40,8 +40,8 @@ jobs:
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
     - run: |
         cd ${{ matrix.test-name }}
-        git config --local --user.name "pCYSl5EDgo"
-        git config --local--user.email "pCYSl5EDgo@yahoo.co.jp"
+        git config --local user.name "pCYSl5EDgo"
+        git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git init
         git checkout $GITHUB_SHA
     - run: |
