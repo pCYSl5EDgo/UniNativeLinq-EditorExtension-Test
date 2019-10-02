@@ -47,11 +47,12 @@ jobs:
       run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
         ls -l Assets
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy Tests Folder
       run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets || exit 0
+        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        ls -l
         cp -r ../Data~/Concat/Tests Tests
     
     - name: Run Test
