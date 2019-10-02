@@ -11,10 +11,13 @@ public static class ExecuteMethods
         SettingWindow settingWindow = default;
         try
         {
+            Console.WriteLine("DECL");
             settingWindow = EditorWindow.GetWindow<SettingWindow>();            
+            Console.WriteLine("DECL 2");
         }
         catch (System.Exception e)
         {
+            Console.WriteLine("CATCH 2");
             Console.WriteLine(e.ToString());
             throw;
         }
