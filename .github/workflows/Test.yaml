@@ -25,11 +25,15 @@ jobs:
         git checkout $GITHUB_SHA
     - name: Copy Files
       run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
-        rm -rf Assets/Tests
-        rm -rf Assets/UNL/Settings
-        cp -r Data~/Concat/Tests Assets/Tests
-        cp -r Data~/Concat/Settings Assets/UNL/Settings
+        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        rm -rf Tests
+        rm -rf UNL/Settings
+        echo "HOGEHOGE"
+        ls -l
+        cp -r ../Data~/Concat/Tests Tests
+        cp -r ../Data~/Concat/Settings UNL/Settings
+        echo "FugaFuga"
+        ls -l
 
     - name: Manual License Activation
       run: |
