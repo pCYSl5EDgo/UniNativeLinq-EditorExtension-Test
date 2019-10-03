@@ -15,52 +15,32 @@ jobs:
     steps:
     - name: Create Directory & Git Clone
       run: |
-        mkdir artifact_Concat
-        mkdir Concat
-        cd Concat
+        mkdir artifact_$TEST
+        mkdir $TEST
+        cd $TEST
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
-    - name: Git Checkout
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
-    
-    - name: Remove Test Folder & Copy Files
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        cd Assets
         cp -f Tests.meta ../..
         rm -rf Tests
         rm -f Tests.meta
         rm -rf UNL/Settings
-        cp -r ../Data~/Concat/Settings UNL/Settings
-
-    - name: Manual License Activation
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cp -r ../Data~/$TEST/Settings UNL/Settings
+        cd ..
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
+        cd Assets
+        cp -r ../Data~/$TEST/Tests Tests
+        cp ../../Tests.meta ../Data~/$TEST
+        cd ..
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_$TEST/results.xml || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
-    
-    - name: Create DLL
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
-        ls -l Assets
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
-
-    - name: Copy Tests Folder
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
-        ls -l
-        cp -r ../Data~/Concat/Tests Tests
-        cp ../../Tests.meta ../Data~/Concat
-    
-    - name: Run Test
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
-        ls -l Assets
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
+        TEST: Concat
 
     - uses: actions/upload-artifact@master
       with:
