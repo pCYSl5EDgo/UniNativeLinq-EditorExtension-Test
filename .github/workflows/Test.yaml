@@ -13,9 +13,9 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: GIT CLONE
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation
       run: |
-        mkdir artifact
+        mkdir artifact_Concat
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
         cd UniNativeLinq-EditorExtension-Test # UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
@@ -32,21 +32,24 @@ jobs:
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
-    
+
     - name: Create DLL
-      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath UniNativeLinq-EditorExtension-Test -executeMethod ExecuteMethods.CreateDll || exit 0
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy Tests Folder & Run Test
       run: |
-        cp -r UniNativeLinq-EditorExtension-Test/Data~/Concat/Tests UniNativeLinq-EditorExtension-Test/Assets/Tests
-        cp Tests.meta UniNativeLinq-EditorExtension-Test/Data~/Concat
-        # UniNativeLinq-EditorExtension-Test/Assets
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath UniNativeLinq-EditorExtension-Test -runEditorTests -editorTestsResultFile artifact/results_Concat.xml || exit 0
+        cd UniNativeLinq-EditorExtension-Test/Assets
+        cp -r ../Data~/Concat/Tests Tests
+        cp ../../Tests.meta ../Data~/Concat
+        cd ..
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../artifact_Concat/results.xml || exit 0
 
     - uses: actions/upload-artifact@master
       with:
         name: test_results_Concat
-        path: artifact
+        path: artifact_Concat
 
   reportResultJob:
     runs-on: ubuntu-latest
