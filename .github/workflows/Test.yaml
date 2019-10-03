@@ -59,6 +59,8 @@ jobs:
         /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath .. -runEditorTests -editorTestsResultFile "../../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: SingleApi
+    
+    - run: ls -l artifact
 
     - uses: actions/upload-artifact@master
       with:
@@ -97,4 +99,4 @@ jobs:
         exit $INPUT_RESULT
       env:
         SLACK: ${{ secrets.slackhook }}
-        TEST: SingleApi
+        TEST: SingleApi 
