@@ -13,16 +13,13 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone
+    - name: Create Directory & Git Clone & Checkout
       run: |
         mkdir artifact_Concat
         mkdir Concat
         cd Concat
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
-    
-    - name: Git Checkout
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
