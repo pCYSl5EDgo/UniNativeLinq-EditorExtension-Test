@@ -13,7 +13,7 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone & Checkout
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files
       run: |
         mkdir artifact_Concat
         mkdir Concat
@@ -23,10 +23,7 @@ jobs:
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
-    
-    - name: Remove Test Folder & Copy Files
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
+        cd Assets
         cp -f Tests.meta ../..
         rm -rf Tests
         rm -f Tests.meta
