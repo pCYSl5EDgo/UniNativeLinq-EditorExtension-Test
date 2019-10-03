@@ -31,7 +31,7 @@ jobs:
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
-    - name: Clean & Create DLL
+    - name: Clean
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
@@ -39,7 +39,7 @@ jobs:
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
       env:
-        TEST: Zip
+        TEST: SkipTale
 
     - name: Create DLL
       run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
@@ -52,7 +52,7 @@ jobs:
         ls -l Assets
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
-        TEST: Zip
+        TEST: SkipTale
     
     - run: ls -l artifact
 
@@ -83,4 +83,4 @@ jobs:
         exit $INPUT_RESULT
       env:
         SLACK: ${{ secrets.slackhook }}
-        TEST: Zip
+        TEST: SkipTale
