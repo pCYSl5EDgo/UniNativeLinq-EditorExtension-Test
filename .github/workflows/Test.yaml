@@ -38,25 +38,25 @@ jobs:
 
     - name: Copy Tests Folder & Run Test
       run: |
-        cd UniNativeLinq-EditorExtension-Test/Assets
-        cp -r ../Data~/Concat/Tests Tests
-        cp ../../Tests.meta ../Data~/Concat
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath .. -runEditorTests -editorTestsResultFile ../../artifact/results_Concat.xml || exit 0
+        cp -r UniNativeLinq-EditorExtension-Test/Data~/Concat/Tests UniNativeLinq-EditorExtension-Test/Assets/Tests
+        cp Tests.meta UniNativeLinq-EditorExtension-Test/Data~/Concat
+        # UniNativeLinq-EditorExtension-Test/Assets
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath UniNativeLinq-EditorExtension-Test -runEditorTests -editorTestsResultFile artifact/results_Concat.xml || exit 0
 
     - uses: actions/upload-artifact@master
       with:
-        name: test_results
+        name: test_results_Concat
         path: artifact
 
   reportResultJob:
     runs-on: ubuntu-latest
     needs: editorTestJob
     steps:
-    - run: mkdir artifact
+    - run: mkdir artifact_Concat
     - uses: actions/download-artifact@master
       with:
-        name: test_results
-        path: artifact
+        name: test_results_Concat
+        path: artifact_Concat
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
       with:
@@ -64,7 +64,7 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run ../artifact/results_Concat.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
         cd ..
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
         exit $INPUT_RESULT
