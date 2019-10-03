@@ -40,9 +40,11 @@ jobs:
 
     - name: Copy Tests Folder & Run Test(Concat)
       run: |
-        cp Tests.meta UniNativeLinq-EditorExtension-Test/Assets/
-        cp -a "UniNativeLinq-EditorExtension-Test/Data~/$TEST/Tests" UniNativeLinq-EditorExtension-Test/Assets
-        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -runEditorTests -editorTestsResultFile "artifact/results_$TEST.xml" || exit 0
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Concat
 
@@ -53,7 +55,8 @@ jobs:
         rm -rf Tests
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
-        /opt/Unity/Editor/Unity -disable-assembly-updater -quit -batchmode -nographics -silent-crashes -logFile -projectPath .. -executeMethod ExecuteMethods.CreateDll || exit 0
+        cd ..
+        /opt/Unity/Editor/Unity -disable-assembly-updater -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
       env:
         TEST: SingleApi
     
@@ -61,7 +64,8 @@ jobs:
       run: |
         cp Tests.meta "UniNativeLinq-EditorExtension-Test/Assets"
         cp -a "UniNativeLinq-EditorExtension-Test/Data~/$TEST/Tests" "UniNativeLinq-EditorExtension-Test/Assets"
-        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -runEditorTests -editorTestsResultFile "../../artifact/results_$TEST.xml" || exit 0
+        cd UniNativeLinq-EditorExtension-Test
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: SingleApi
     
