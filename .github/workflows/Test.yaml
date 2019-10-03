@@ -39,7 +39,7 @@ jobs:
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
       env:
-        TEST: SingleApi
+        TEST: Concat
 
     - name: Create DLL
       run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
@@ -52,7 +52,7 @@ jobs:
         ls -l Assets
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
-        TEST: SingleApi
+        TEST: Concat
     
     - run: ls -l artifact
 
@@ -75,7 +75,7 @@ jobs:
       with:
         dotnet-version: '3.0.100'
 
-    - name: report result to slack(SingleApi)
+    - name: report result to slack
       run: |
         cd NUnitXmlReporter
         dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
@@ -83,4 +83,4 @@ jobs:
         exit $INPUT_RESULT
       env:
         SLACK: ${{ secrets.slackhook }}
-        TEST: SingleApi
+        TEST: Concat
