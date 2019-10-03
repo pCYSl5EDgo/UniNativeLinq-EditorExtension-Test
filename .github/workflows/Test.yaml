@@ -19,6 +19,9 @@ jobs:
         mkdir Concat
         cd Concat
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
+    
+    - name: Git Checkout
+      run: |
         cd UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
@@ -80,9 +83,8 @@ jobs:
         dotnet-version: '3.0.100'
     - name: report result to slack
       run: |
-        touch slackJson
         cd NUnitXmlReporter
-        dotnet run slack-block ../artifact_Concat/results.xml -o ../slackJson -r $GITHUB_REPOSITORY -c $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
         cd ..
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
         exit $INPUT_RESULT
