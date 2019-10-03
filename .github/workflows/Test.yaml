@@ -55,16 +55,18 @@ jobs:
         rm -rf Tests
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
-        cd ..
-        /opt/Unity/Editor/Unity -disable-assembly-updater -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
       env:
         TEST: SingleApi
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
     
-    - name: Run Test
+    - name: Copy Tests Folder & Run Test(SingleApi)
       run: |
-        cp Tests.meta "UniNativeLinq-EditorExtension-Test/Assets"
-        cp -a "UniNativeLinq-EditorExtension-Test/Data~/$TEST/Tests" "UniNativeLinq-EditorExtension-Test/Assets"
         cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: SingleApi
