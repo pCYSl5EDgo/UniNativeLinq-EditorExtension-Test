@@ -81,7 +81,7 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run slack-block ../artifact_Concat/results.xml -o ../slackJson -r $GITHUB_REPOSITORY -c $GITHUB_SHA || INPUT_RESULT=$?
         cd ..
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
         exit $INPUT_RESULT
