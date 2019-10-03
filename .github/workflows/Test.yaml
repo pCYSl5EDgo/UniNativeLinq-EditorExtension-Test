@@ -13,7 +13,7 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation
       run: |
         mkdir artifact_Concat
         mkdir Concat
@@ -29,10 +29,7 @@ jobs:
         rm -f Tests.meta
         rm -rf UNL/Settings
         cp -r ../Data~/Concat/Settings UNL/Settings
-
-    - name: Manual License Activation
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd ..
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
       env:
