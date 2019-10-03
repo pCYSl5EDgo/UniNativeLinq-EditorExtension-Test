@@ -13,7 +13,7 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation & Create DLL
       run: |
         mkdir artifact_Concat
         mkdir Concat
@@ -32,26 +32,19 @@ jobs:
         cd ..
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
-    
-    - name: Create DLL
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
-        ls -l Assets
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy Tests Folder
       run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test/Assets
-        ls -l
-        cp -r ../Data~/Concat/Tests Tests
-        cp ../../Tests.meta ../Data~/Concat
+        cd Concat/UniNativeLinq-EditorExtension-Test
+        cp -r Data~/Concat/Tests Assets/Tests
+        cp ../Tests.meta Data~/Concat
     
     - name: Run Test
       run: |
         cd Concat/UniNativeLinq-EditorExtension-Test
-        ls -l Assets
         /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
 
     - uses: actions/upload-artifact@master
