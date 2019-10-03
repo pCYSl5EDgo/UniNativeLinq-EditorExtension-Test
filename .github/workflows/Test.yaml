@@ -54,6 +54,12 @@ jobs:
         rm -rf UNL/Settings
         cp -r "../Data~/$TEST/Settings" UNL/Settings
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath .. -executeMethod ExecuteMethods.CreateDll || echo ""
+      env:
+        TEST: SingleApi
+    
+    - name: Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets
         cp -r "../Data~/$TEST/Tests" Tests
         cp ../../Tests.meta "../Data~/$TEST"
         /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath .. -runEditorTests -editorTestsResultFile "../../artifact/results_$TEST.xml" || exit 0
