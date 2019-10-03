@@ -13,7 +13,7 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation & Create DLL
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation & Create DLL & Copy Tests Folder
       run: |
         mkdir artifact_Concat
         mkdir Concat
@@ -33,14 +33,10 @@ jobs:
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
         /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
-      env:
-        CYPHER_KEY: ${{ secrets.cypherkey }}
-
-    - name: Copy Tests Folder
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
         cp -r Data~/Concat/Tests Assets/Tests
         cp ../Tests.meta Data~/Concat
+      env:
+        CYPHER_KEY: ${{ secrets.cypherkey }}
     
     - name: Run Test
       run: |
