@@ -40,15 +40,12 @@ jobs:
         cd Concat/UniNativeLinq-EditorExtension-Test
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
 
-    - name: Copy Tests Folder
+    - name: Copy Tests Folder & Run Test
       run: |
         cd Concat/UniNativeLinq-EditorExtension-Test/Assets
         cp -r ../Data~/Concat/Tests Tests
         cp ../../Tests.meta ../Data~/Concat
-    
-    - name: Run Test
-      run: |
-        cd Concat/UniNativeLinq-EditorExtension-Test
+        cd ..
         /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../../artifact_Concat/results.xml || exit 0
 
     - uses: actions/upload-artifact@master
