@@ -52,7 +52,7 @@ jobs:
         rm -rf Tests
         rm -f Tests.meta
         rm -rf UNL/Settings
-        cp -r "../Data~/$TEST/Settings UNL/Settings"
+        cp -r "../Data~/$TEST/Settings" UNL/Settings
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath .. -executeMethod ExecuteMethods.CreateDll || echo ""
         cp -r "../Data~/$TEST/Tests" Tests
         cp ../../Tests.meta "../Data~/$TEST"
