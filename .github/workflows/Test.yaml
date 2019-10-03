@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation
       run: |
-        mkdir artifact_Concat
+        mkdir artifact
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
         cd UniNativeLinq-EditorExtension-Test # UniNativeLinq-EditorExtension-Test
         git config --local user.name "pCYSl5EDgo"
@@ -44,12 +44,12 @@ jobs:
         cp -r ../Data~/Concat/Tests Tests
         cp ../../Tests.meta ../Data~/Concat
         cd ..
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../artifact_Concat/results.xml || exit 0
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../artifact/results_Concat.xml || exit 0
 
     - uses: actions/upload-artifact@master
       with:
         name: test_results_Concat
-        path: artifact_Concat
+        path: artifact
 
   reportResultJob:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run ../artifact_Concat/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run ../artifact_Concat/results_Concat.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
         cd ..
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
         exit $INPUT_RESULT
