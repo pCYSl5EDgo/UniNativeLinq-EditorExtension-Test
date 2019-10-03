@@ -33,12 +33,12 @@ jobs:
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
-    - name: Create DLL
+    - name: Create DLL(Concat)
       run: |
         cd UniNativeLinq-EditorExtension-Test
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
 
-    - name: Copy Tests Folder & Run Test
+    - name: Copy Tests Folder & Run Test(Concat)
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets
         cp -r ../Data~/Concat/Tests Tests
@@ -48,7 +48,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: test_results_Concat
+        name: test_results
         path: artifact
 
   reportResultJob:
@@ -58,7 +58,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results_Concat
+        name: test_results
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
