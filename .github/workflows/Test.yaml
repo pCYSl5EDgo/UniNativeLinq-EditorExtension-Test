@@ -22,10 +22,11 @@ jobs:
         git config --local user.email "pCYSl5EDgo@yahoo.co.jp"
         git checkout $GITHUB_SHA
         cd Assets # UniNativeLinq-EditorExtension-Test/Assets
-        mv Tests.meta ../../
+        cp Tests.meta ../../
+        rm -f Tests.meta
         rm -rf Tests
         rm -rf UNL/Settings
-        mv ../Data~/Concat/Settings UNL/
+        cp -a ../Data~/Concat/Settings UNL/
         ls -l
         ls -l UNL
         cd .. # UniNativeLinq-EditorExtension-Test
@@ -35,36 +36,32 @@ jobs:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
     - name: Create DLL
-      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath UniNativeLinq-EditorExtension-Test -executeMethod ExecuteMethods.CreateDll || exit 0
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy Tests Folder & Run Test(Concat)
       run: |
-        mv Tests.meta UniNativeLinq-EditorExtension-Test/Assets/
-        cd UniNativeLinq-EditorExtension-Test/Assets
-        mv  "../Data~/$TEST/Tests" ./
-        mv ../../Tests.meta ./
-        cd ..
-        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+        cp Tests.meta UniNativeLinq-EditorExtension-Test/Assets/
+        cp -a "UniNativeLinq-EditorExtension-Test/Data~/$TEST/Tests" UniNativeLinq-EditorExtension-Test/Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -runEditorTests -editorTestsResultFile "artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Concat
 
     - name: Clean & Create DLL
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
-        mv Tests.meta ../../
+        rm -f Tests.meta
         rm -rf Tests
         rm -rf UNL/Settings
-        mv "../Data~/$TEST/Settings" UNL/
+        cp -a "../Data~/$TEST/Settings" UNL/
         /opt/Unity/Editor/Unity -disable-assembly-updater -quit -batchmode -nographics -silent-crashes -logFile -projectPath .. -executeMethod ExecuteMethods.CreateDll || exit 0
       env:
         TEST: SingleApi
     
     - name: Run Test
       run: |
-        cd UniNativeLinq-EditorExtension-Test/Assets
-        mv "../Data~/$TEST/Tests" ./
-        mv ../../Tests.meta ./
-        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath .. -runEditorTests -editorTestsResultFile "../../artifact/results_$TEST.xml" || exit 0
+        cp Tests.meta "UniNativeLinq-EditorExtension-Test/Assets"
+        cp -a "UniNativeLinq-EditorExtension-Test/Data~/$TEST/Tests" "UniNativeLinq-EditorExtension-Test/Assets"
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -runEditorTests -editorTestsResultFile "../../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: SingleApi
     
