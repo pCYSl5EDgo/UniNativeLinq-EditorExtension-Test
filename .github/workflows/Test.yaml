@@ -33,18 +33,18 @@ jobs:
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
-    - name: Create DLL(Concat)
-      run: |
-        cd UniNativeLinq-EditorExtension-Test
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod ExecuteMethods.CreateDll || exit 0
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath UniNativeLinq-EditorExtension-Test -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy Tests Folder & Run Test(Concat)
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets
-        cp -r ../Data~/Concat/Tests Tests
-        cp ../../Tests.meta ../Data~/Concat
+        cp -r "../Data~/$TEST/Tests" Tests
+        cp ../../Tests.meta "../Data~/$TEST"
         cd ..
-        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile ../artifact/results_Concat.xml || exit 0
+        /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Concat
 
     - uses: actions/upload-artifact@master
       with:
