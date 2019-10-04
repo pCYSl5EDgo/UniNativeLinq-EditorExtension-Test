@@ -2078,3 +2078,43 @@ jobs:
       env:
         SLACK: ${{ secrets.slackhook }}
         TEST: Zip
+
+  pushJob:
+    runs-on: ubuntu-latest
+    needs:
+    - reportResultJob0
+    - reportResultJob1
+    - reportResultJob2
+    - reportResultJob3
+    - reportResultJob4
+    - reportResultJob5
+    - reportResultJob6
+    - reportResultJob7
+    - reportResultJob8
+    - reportResultJob9
+    - reportResultJobA
+    - reportResultJobB
+    - reportResultJobC
+    - reportResultJobD
+    - reportResultJobE
+    - reportResultJobF
+    - reportResultJobG
+    - reportResultJobH
+    - reportResultJobI
+    - reportResultJobJ
+    steps:
+    - uses: actions/checkout@master
+    - run: echo $netrc > ~/.netrc
+      env:
+        netrc: ${{ secrets.netrc }}
+    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension.git
+    - name: Copy
+      run: |
+        rm -fr UniNativeLinq-EditorExtension/UNL/
+        cp -fr Assets/UNL/ UniNativeLinq-EditorExtension/UNL/
+    - run: |
+        cd UniNativeLinq-EditorExtension
+        git config --global user.email "pcysl5edgo@yahoo.co.jp"
+        git config --global user.name "pCYSl5EDgo"
+        git commit -a -m "[update]DLL Update of $GITHUB_SHA"
+        git push -v
