@@ -52,6 +52,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Where
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsJ
 
   editorTestJobI:
     runs-on: ubuntu-latest
@@ -99,6 +103,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Union
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsI
 
   editorTestJobH:
     runs-on: ubuntu-latest
@@ -169,6 +177,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: TryGetMax
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsH
 
   editorTestJobG:
     runs-on: ubuntu-latest
@@ -240,6 +252,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: TryGetSingle
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsG
 
   editorTestJobF:
     runs-on: ubuntu-latest
@@ -310,6 +326,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: TryGetFirst
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsF
 
   editorTestJobE:
     runs-on: ubuntu-latest
@@ -381,6 +401,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Sum
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsE
 
   editorTestJobD:
     runs-on: ubuntu-latest
@@ -407,7 +431,7 @@ jobs:
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
-      - name: Clean
+    - name: Clean
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
@@ -452,6 +476,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: TakeLast
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsD
 
   editorTestJobC:
     runs-on: ubuntu-latest
@@ -523,6 +551,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: SkipWhile
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsC
 
   editorTestJobB:
     runs-on: ubuntu-latest
@@ -594,6 +626,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Skip
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsB
 
   editorTestJobA:
     runs-on: ubuntu-latest
@@ -665,6 +701,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Select
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsA
 
   editorTestJob9:
     runs-on: ubuntu-latest
@@ -735,6 +775,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Repeat
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results9
         
   editorTestJob8:
     runs-on: ubuntu-latest
@@ -805,6 +849,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: OrderBy
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results8
 
   editorTestJob7:
     runs-on: ubuntu-latest
@@ -875,6 +923,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Join
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results7
 
   editorTestJob6:
     runs-on: ubuntu-latest
@@ -945,6 +997,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: GroupJoin
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results6
 
   editorTestJob5:
     runs-on: ubuntu-latest
@@ -1015,6 +1071,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Except
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results5
 
   editorTestJob4:
     runs-on: ubuntu-latest
@@ -1086,6 +1146,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: DefaultIfEmpty
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results4
 
   editorTestJob3:
     runs-on: ubuntu-latest
@@ -1156,6 +1220,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Contains
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results3
 
   editorTestJob2:
     runs-on: ubuntu-latest
@@ -1227,6 +1295,10 @@ jobs:
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: Average
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results2
 
   editorTestJob1:
     runs-on: ubuntu-latest
@@ -1299,6 +1371,11 @@ jobs:
       env:
         TEST: All
 
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_results1
+
   editorTestJob0:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -1349,7 +1426,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: test_results
+        name: test_results0
         path: artifact
 
   reportResultJobJ:
@@ -1359,7 +1436,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsJ
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1383,7 +1460,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsI
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1407,7 +1484,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsH
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1441,7 +1518,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsG
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1475,7 +1552,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsF
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1509,7 +1586,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsE
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1543,7 +1620,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsD
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1577,7 +1654,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsC
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1611,7 +1688,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsB
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1645,7 +1722,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_resultsA
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1679,7 +1756,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results9
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1713,7 +1790,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results8
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1747,7 +1824,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results7
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1781,7 +1858,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results6
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1815,7 +1892,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results5
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1849,7 +1926,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results4
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1883,7 +1960,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results3
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1917,7 +1994,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results2
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1951,7 +2028,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results1
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
@@ -1985,7 +2062,7 @@ jobs:
     - run: mkdir artifact
     - uses: actions/download-artifact@master
       with:
-        name: test_results
+        name: test_results0
         path: artifact
     - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
     - uses: actions/setup-dotnet@v1.0.2
