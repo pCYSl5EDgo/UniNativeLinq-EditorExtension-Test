@@ -39,6 +39,144 @@ jobs:
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
       env:
+        TEST: Aggregate
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Aggregate
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: All
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: All
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: Any
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Any
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: Average
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Average
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: Concat
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Concat
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: Contains
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Contains
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
         TEST: Count
 
     - name: Create DLL
@@ -74,6 +212,66 @@ jobs:
     - uses: actions/setup-dotnet@v1.0.2
       with:
         dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Aggregate
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: All
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Any
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Average
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Concat
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Contains
 
     - name: report result to slack
       run: |
