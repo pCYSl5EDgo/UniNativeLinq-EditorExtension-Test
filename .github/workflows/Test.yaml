@@ -57,6 +57,30 @@ jobs:
         path: artifact
         name: test_resultsJ
 
+  reportResultJobJ:
+    runs-on: ubuntu-latest
+    needs: editorTestJobJ
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsJ
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Where
+
   editorTestJobI:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -107,6 +131,30 @@ jobs:
       with:
         path: artifact
         name: test_resultsI
+
+  reportResultJobI:
+    runs-on: ubuntu-latest
+    needs: editorTestJobI
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsI
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Union
 
   editorTestJobH:
     runs-on: ubuntu-latest
@@ -181,6 +229,40 @@ jobs:
       with:
         path: artifact
         name: test_resultsH
+
+  reportResultJobH:
+    runs-on: ubuntu-latest
+    needs: editorTestJobH
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsH
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetMin
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetMax
 
   editorTestJobG:
     runs-on: ubuntu-latest
@@ -257,6 +339,40 @@ jobs:
         path: artifact
         name: test_resultsG
 
+  reportResultJobG:
+    runs-on: ubuntu-latest
+    needs: editorTestJobG
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsG
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetLast
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetSingle
+
   editorTestJobF:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -330,6 +446,40 @@ jobs:
       with:
         path: artifact
         name: test_resultsF
+
+  reportResultJobF:
+    runs-on: ubuntu-latest
+    needs: editorTestJobF
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsF
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetElementAt
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TryGetFirst
 
   editorTestJobE:
     runs-on: ubuntu-latest
@@ -406,6 +556,40 @@ jobs:
         path: artifact
         name: test_resultsE
 
+  reportResultJobE:
+    runs-on: ubuntu-latest
+    needs: editorTestJobE
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsE
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TakeWhile
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Sum
+
   editorTestJobD:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -480,6 +664,40 @@ jobs:
       with:
         path: artifact
         name: test_resultsD
+
+  reportResultJobD:
+    runs-on: ubuntu-latest
+    needs: editorTestJobD
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsD
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Take
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: TakeLast
 
   editorTestJobC:
     runs-on: ubuntu-latest
@@ -556,6 +774,40 @@ jobs:
         path: artifact
         name: test_resultsC
 
+  reportResultJobC:
+    runs-on: ubuntu-latest
+    needs: editorTestJobC
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsC
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: SkipLast
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: SkipWhile
+
   editorTestJobB:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -630,6 +882,40 @@ jobs:
       with:
         path: artifact
         name: test_resultsB
+
+  reportResultJobB:
+    runs-on: ubuntu-latest
+    needs: editorTestJobB
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsB
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: SelectMany
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Skip
 
   editorTestJobA:
     runs-on: ubuntu-latest
@@ -706,6 +992,40 @@ jobs:
         path: artifact
         name: test_resultsA
 
+  reportResultJobA:
+    runs-on: ubuntu-latest
+    needs: editorTestJobA
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_resultsA
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Reverse
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Select
+
   editorTestJob9:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -779,7 +1099,41 @@ jobs:
       with:
         path: artifact
         name: test_results9
-        
+
+  reportResultJob9:
+    runs-on: ubuntu-latest
+    needs: editorTestJob9
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results9
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Range
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Repeat
+
   editorTestJob8:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -853,6 +1207,40 @@ jobs:
       with:
         path: artifact
         name: test_results8
+
+  reportResultJob8:
+    runs-on: ubuntu-latest
+    needs: editorTestJob8
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results8
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: MinMax
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: OrderBy
 
   editorTestJob7:
     runs-on: ubuntu-latest
@@ -928,6 +1316,40 @@ jobs:
         path: artifact
         name: test_results7
 
+  reportResultJob7:
+    runs-on: ubuntu-latest
+    needs: editorTestJob7
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results7
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Intersect
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Join
+
   editorTestJob6:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -1002,6 +1424,40 @@ jobs:
         path: artifact
         name: test_results6
 
+  reportResultJob6:
+    runs-on: ubuntu-latest
+    needs: editorTestJob6
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results6
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: GroupBy
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: GroupJoin
+
   editorTestJob5:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -1075,6 +1531,40 @@ jobs:
       with:
         path: artifact
         name: test_results5
+
+  reportResultJob5:
+    runs-on: ubuntu-latest
+    needs: editorTestJob5
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results5
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Distinct
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Except
 
   editorTestJob4:
     runs-on: ubuntu-latest
@@ -1151,6 +1641,40 @@ jobs:
         path: artifact
         name: test_results4
 
+  reportResultJob4:
+    runs-on: ubuntu-latest
+    needs: editorTestJob4
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results4
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Count
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: DefaultIfEmpty
+
   editorTestJob3:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -1224,6 +1748,40 @@ jobs:
       with:
         path: artifact
         name: test_results3
+
+  reportResultJob3:
+    runs-on: ubuntu-latest
+    needs: editorTestJob3
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results3
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Concat
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Contains
 
   editorTestJob2:
     runs-on: ubuntu-latest
@@ -1299,6 +1857,40 @@ jobs:
       with:
         path: artifact
         name: test_results2
+
+  reportResultJob2:
+    runs-on: ubuntu-latest
+    needs: editorTestJob2
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results2
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Any
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Average
 
   editorTestJob1:
     runs-on: ubuntu-latest
@@ -1376,6 +1968,40 @@ jobs:
         path: artifact
         name: test_results1
 
+  reportResultJob1:
+    runs-on: ubuntu-latest
+    needs: editorTestJob1
+    steps:
+    - run: mkdir artifact
+    - uses: actions/download-artifact@master
+      with:
+        name: test_results1
+        path: artifact
+    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
+    - uses: actions/setup-dotnet@v1.0.2
+      with:
+        dotnet-version: '3.0.100'
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: Aggregate
+
+    - name: report result to slack
+      run: |
+        cd NUnitXmlReporter
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        exit $INPUT_RESULT
+      env:
+        SLACK: ${{ secrets.slackhook }}
+        TEST: All
+
   editorTestJob0:
     runs-on: ubuntu-latest
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
@@ -1429,632 +2055,6 @@ jobs:
         name: test_results0
         path: artifact
 
-  reportResultJobJ:
-    runs-on: ubuntu-latest
-    needs: editorTestJobJ
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsJ
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Where
-
-  reportResultJobI:
-    runs-on: ubuntu-latest
-    needs: editorTestJobI
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsI
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Union
-
-  reportResultJobH:
-    runs-on: ubuntu-latest
-    needs: editorTestJobH
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsH
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetMin
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetMax
-
-  reportResultJobG:
-    runs-on: ubuntu-latest
-    needs: editorTestJobG
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsG
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetLast
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetSingle
-
-  reportResultJobF:
-    runs-on: ubuntu-latest
-    needs: editorTestJobF
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsF
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetElementAt
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TryGetFirst
-
-  reportResultJobE:
-    runs-on: ubuntu-latest
-    needs: editorTestJobE
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsE
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TakeWhile
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Sum
-
-  reportResultJobD:
-    runs-on: ubuntu-latest
-    needs: editorTestJobD
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsD
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Take
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: TakeLast
-
-  reportResultJobC:
-    runs-on: ubuntu-latest
-    needs: editorTestJobC
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsC
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: SkipLast
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: SkipWhile
-
-  reportResultJobB:
-    runs-on: ubuntu-latest
-    needs: editorTestJobB
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsB
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: SelectMany
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Skip
-
-  reportResultJobA:
-    runs-on: ubuntu-latest
-    needs: editorTestJobA
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_resultsA
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Reverse
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Select
-
-  reportResultJob9:
-    runs-on: ubuntu-latest
-    needs: editorTestJob9
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results9
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Range
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Repeat
-
-  reportResultJob8:
-    runs-on: ubuntu-latest
-    needs: editorTestJob8
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results8
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: MinMax
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: OrderBy
-
-  reportResultJob7:
-    runs-on: ubuntu-latest
-    needs: editorTestJob7
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results7
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Intersect
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Join
-
-  reportResultJob6:
-    runs-on: ubuntu-latest
-    needs: editorTestJob6
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results6
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: GroupBy
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: GroupJoin
-
-  reportResultJob5:
-    runs-on: ubuntu-latest
-    needs: editorTestJob5
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results5
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Distinct
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Except
-
-  reportResultJob4:
-    runs-on: ubuntu-latest
-    needs: editorTestJob4
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results4
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Count
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: DefaultIfEmpty
-
-  reportResultJob3:
-    runs-on: ubuntu-latest
-    needs: editorTestJob3
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results3
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Concat
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Contains
-
-  reportResultJob2:
-    runs-on: ubuntu-latest
-    needs: editorTestJob2
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results2
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Any
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Average
-
-  reportResultJob1:
-    runs-on: ubuntu-latest
-    needs: editorTestJob1
-    steps:
-    - run: mkdir artifact
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results1
-        path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: Aggregate
-
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: All
-
   reportResultJob0:
     runs-on: ubuntu-latest
     needs: editorTestJob0
@@ -2072,7 +2072,7 @@ jobs:
     - name: report result to slack
       run: |
         cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
+        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
         curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
         exit $INPUT_RESULT
       env:
