@@ -27,7 +27,7 @@ jobs:
         rm -rf Tests
         cd .. # UniNativeLinq-EditorExtension-Test
         openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> Unity_v2018.x.ulf
-        /opt/Unity/Editor/Unity -manuAverageicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+        /opt/Unity/Editor/Unity -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
@@ -39,7 +39,7 @@ jobs:
         rm -rf UNL/Settings
         cp -a "../Data~/$TEST/Settings" UNL/
       env:
-        TEST: Average
+        TEST: Any
 
     - name: Create DLL
       run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
@@ -52,7 +52,7 @@ jobs:
         ls -l Assets
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
-        TEST: Average
+        TEST: Any
     
     - run: ls -l artifact
 
@@ -83,4 +83,4 @@ jobs:
         exit $INPUT_RESULT
       env:
         SLACK: ${{ secrets.slackhook }}
-        TEST: Average
+        TEST: Any
