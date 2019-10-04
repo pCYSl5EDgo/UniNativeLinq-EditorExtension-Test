@@ -2112,7 +2112,8 @@ jobs:
       run: |
         rm -fr UniNativeLinq-EditorExtension/UNL/
         cp -fr Assets/UNL/ UniNativeLinq-EditorExtension/UNL/
-    - run: |
+    - name: Commit & Push
+      run: |
         cd UniNativeLinq-EditorExtension
         git config --global user.email "pcysl5edgo@yahoo.co.jp"
         git config --global user.name "pCYSl5EDgo"
