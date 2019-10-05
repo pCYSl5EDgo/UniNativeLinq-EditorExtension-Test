@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SetOperation
   m_EditorClassIdentifier: 
   Enumerable: SetOperation
-  Enabled: 0
+  Enabled: 1
   IsSpecial: 0
   GenericParameterCount: 6
   RelatedEnumerableArray: []
