@@ -1392,7 +1392,6 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test
         cp ../Tests.meta Assets/
         cp -a "Data~/$TEST/Tests" Assets
-        ls -l Assets
         /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
       env:
         TEST: GroupBy

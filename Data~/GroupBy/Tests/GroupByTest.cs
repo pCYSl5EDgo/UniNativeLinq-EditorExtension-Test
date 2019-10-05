@@ -94,12 +94,7 @@ namespace UniNativeLinq.Tests
         public void GroupByWithElementProjection()
         {
             double[] source = { 3.5, 5.2, 3.9, 5.9, 4.5 };
-            var groups = source.GroupBy(x => (int)x, x =>
-            {
-                int v = (int)(x * 10) - 10 * ((int)x);
-                Debug.Log(v);
-                return v;
-            });
+            var groups = source.GroupBy(x => (int)x, x => (int)(x * 10) - 10 * ((int)x));
 
             var list = groups.ToArray();
             Assert.AreEqual(3, list.Length);
