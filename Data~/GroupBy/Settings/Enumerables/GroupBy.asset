@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GroupBy
   m_EditorClassIdentifier: 
   Enumerable: GroupBy
-  Enabled: 1
+  Enabled: 0
   IsSpecial: 0
   GenericParameterCount: 8
   RelatedEnumerableArray:
