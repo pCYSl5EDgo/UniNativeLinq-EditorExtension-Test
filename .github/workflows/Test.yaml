@@ -36,8 +36,46 @@ jobs:
         cd artifact
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -exportPackage "Assets/UNL" "UniNativeLinq-EditorExtension"
 
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: unitypackage
+
     - name: Clean
       run: |
+        rm -rf artifact
+        mkdir artifact
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: Where
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy Tests Folder & Run Test
+      run: |
+        ls -l artifact
+        cd UniNativeLinq-EditorExtension-Test
+        cp ../Tests.meta Assets/
+        cp -a "Data~/$TEST/Tests" Assets
+        ls -l Assets
+        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
+      env:
+        TEST: Where
+    
+    - uses: actions/upload-artifact@master
+      with:
+        path: artifact
+        name: test_resultsJ
+
+    - name: Clean
+      run: |
+        rm -rf artifact
+        mkdir artifact
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
@@ -52,32 +90,10 @@ jobs:
     - name: Copy DLL
       run: cp -f "UniNativeLinq-EditorExtension-Test/Assets/UNL/UniNativeLinqDll.dll" "artifact/UniNativeLinqDll.dll"
 
-    - name: Clean
-      run: |
-        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
-        rm -f Tests.meta
-        rm -rf Tests
-        rm -rf UNL/Settings
-        cp -a "../Data~/$TEST/Settings" UNL/
-      env:
-        TEST: Where
-
-    - name: Create DLL
-      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
-
-    - name: Copy Tests Folder & Run Test
-      run: |
-        cd UniNativeLinq-EditorExtension-Test
-        cp ../Tests.meta Assets/
-        cp -a "Data~/$TEST/Tests" Assets
-        ls -l Assets
-        /opt/Unity/Editor/Unity -disable-assembly-updater -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile "../artifact/results_$TEST.xml" || exit 0
-      env:
-        TEST: Where
     - uses: actions/upload-artifact@master
       with:
         path: artifact
-        name: test_resultsJ
+        name: FULL
 
   reportResultJobJ:
     runs-on: ubuntu-latest
