@@ -13,7 +13,7 @@ jobs:
       matrix:
         unity-tag: [2018.4.9f1]
     steps:
-    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files & Manual License Activation
+    - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files
       run: |
         mkdir artifact
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
@@ -30,6 +30,28 @@ jobs:
         /opt/Unity/Editor/Unity -logFile -manualLicenseFile Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
       env:
         CYPHER_KEY: ${{ secrets.cypherkey }}
+
+    - name: Build unitypackage
+      run: |
+        cd artifact
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -exportPackage "Assets/UNL" "UniNativeLinq-EditorExtension"
+
+    - name: Clean
+      run: |
+        cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
+        rm -f Tests.meta
+        rm -rf Tests
+        rm -rf UNL/Settings
+        cp -a "../Data~/$TEST/Settings" UNL/
+      env:
+        TEST: FULL
+
+    - name: Create DLL
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
+
+    - name: Copy DLL
+      run: cp -f "UniNativeLinq-EditorExtension-Test/Assets/UNL/UniNativeLinqDll.dll" "artifact/UniNativeLinqDll.dll"
+
     - name: Clean
       run: |
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
