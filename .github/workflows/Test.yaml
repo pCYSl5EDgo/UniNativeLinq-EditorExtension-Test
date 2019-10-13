@@ -2156,4 +2156,4 @@ jobs:
         git config --global user.name "pCYSl5EDgo"
         git add .
         git commit -a -m "[update]DLL Update of $GITHUB_SHA"
-        git push -v
+        git push -v || exit 0
