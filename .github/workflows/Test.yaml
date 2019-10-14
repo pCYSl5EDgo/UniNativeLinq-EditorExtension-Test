@@ -1485,15 +1485,15 @@ jobs:
         SLACK: ${{ secrets.slackhook }}
         TEST: GroupBy
 
-    - name: report result to slack
-      run: |
-        cd NUnitXmlReporter
-        dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
-        TEST: GroupJoin
+    #- name: report result to slack
+      #run: |
+        #cd NUnitXmlReporter
+        #dotnet run "../artifact/results_$TEST.xml" ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA "Test $TEST" || INPUT_RESULT=$?
+        #curl -X POST -H 'ContentX-type:application/json' --data "$(cat ../slackJson)" $SLACK
+        #exit $INPUT_RESULT
+      #env:
+        #SLACK: ${{ secrets.slackhook }}
+        #TEST: GroupJoin
 
   editorTestJob5:
     runs-on: ubuntu-latest
