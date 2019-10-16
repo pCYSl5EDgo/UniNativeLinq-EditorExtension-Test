@@ -18,7 +18,7 @@ public static class ExecuteMethods
     {
         // configure
         var root = "Plugins/UNL";
-        var exportPath = "../../artifact/UniNativeLinq.unitypackage";
+                var exportPath = Path.Combine(Application.dataPath + "/", "../../artifact_unity/UniNativeLinq.unitypackage");
 
         var path = Path.Combine(Application.dataPath, root);
         var assets = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories)
@@ -40,7 +40,7 @@ public static class ExecuteMethods
     {
         // configure
         var root = "Plugins/UNL/Settings";
-        var exportPath = "../../artifact_setting/UniNativeLinq-Settings.unitypackage";
+        var exportPath = Path.Combine(Application.dataPath + "/", "../../artifact_setting/UniNativeLinq-Settings.unitypackage");
 
         var path = Path.Combine(Application.dataPath, root);
         var assets = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories)

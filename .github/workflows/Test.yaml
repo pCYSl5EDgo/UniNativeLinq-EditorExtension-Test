@@ -16,6 +16,7 @@ jobs:
     - name: Create Directory & Git Clone & Checkout & Remove Test Folder & Copy Files
       run: |
         mkdir artifact
+        mkdir artifact_unity
         mkdir artifact_setting
         git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
         cd UniNativeLinq-EditorExtension-Test # UniNativeLinq-EditorExtension-Test
@@ -33,18 +34,14 @@ jobs:
         CYPHER_KEY: ${{ secrets.cypherkey }}
 
     - name: Build unitypackage
-      run: |
-        cd artifact
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateUnityPackage
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateUnityPackage
         
     - name: Build unitypackage
-      run: |
-        cd artifact_setting
-        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateSettingUnityPackage
+      run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateSettingUnityPackage
 
     - uses: actions/upload-artifact@master
       with:
-        path: artifact
+        path: artifact_unity
         name: unitypackage
         
     - uses: actions/upload-artifact@master
@@ -54,8 +51,6 @@ jobs:
 
     - name: Clean
       run: |
-        rm -rf artifact
-        mkdir artifact
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
