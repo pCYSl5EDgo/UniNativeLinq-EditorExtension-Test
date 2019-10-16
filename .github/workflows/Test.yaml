@@ -2198,6 +2198,8 @@ jobs:
     - name: Commit & Push
       run: |
         cd UniNativeLinq-EditorExtension
+        rm -fr UNL/Settings/
+        rm -f UNL/Settings.meta
         git config --global user.email "pcysl5edgo@yahoo.co.jp"
         git config --global user.name "pCYSl5EDgo"
         git add .
