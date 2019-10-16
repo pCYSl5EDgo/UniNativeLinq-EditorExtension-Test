@@ -2143,16 +2143,17 @@ jobs:
     - run: echo $netrc > ~/.netrc
       env:
         netrc: ${{ secrets.netrc }}
+    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test.gitﾞ
     - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension.git
     - name: Copy
       run: |
         rm -fr UniNativeLinq-EditorExtension/UNL/
-        cp -fr Assets/UNL/ UniNativeLinq-EditorExtension/UNL/
+        cp -fr UniNativeLinq-EditorExtension-Test/Assets/UNL/ UniNativeLinq-EditorExtension/UNL/
     - name: Commit & Push
       run: |
         cd UniNativeLinq-EditorExtension
         git config --global user.email "pcysl5edgo@yahoo.co.jp"
         git config --global user.name "pCYSl5EDgo"
         git add .
-        git commit -a -m "[update]DLL Update of $GITHUB_SHA"
-        git push -v || exit 0
+        git commit -a -m "[update]DLL Update of $GITHUB_SHA" || exit 0
+    - run: git push -v || exit 0
