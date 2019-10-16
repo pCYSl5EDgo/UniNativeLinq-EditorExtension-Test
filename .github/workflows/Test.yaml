@@ -38,9 +38,9 @@ jobs:
         /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateUnityPackage
         
     - name: Build unitypackage
-        run: |
-          cd artifact_setting
-          /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateSettingUnityPackage
+      run: |
+        cd artifact_setting
+        /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "../UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateSettingUnityPackage
 
     - uses: actions/upload-artifact@master
       with:
