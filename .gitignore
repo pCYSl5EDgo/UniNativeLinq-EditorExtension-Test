@@ -7,6 +7,9 @@
 results.xml
 
 .vs/
+.idea/
+.vscode/
+Assets/Plugins/Editor/JetBrains*
 
 *.csproj
 *.sln
