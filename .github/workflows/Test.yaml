@@ -2143,8 +2143,8 @@ jobs:
     - run: echo $netrc > ~/.netrc
       env:
         netrc: ${{ secrets.netrc }}
-    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test.gitﾞ
-    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension.git
+    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension-Test
+    - run: git clone https://github.com/pCYSl5EDgo/UniNativeLinq-EditorExtension
     - name: Copy
       run: |
         rm -fr UniNativeLinq-EditorExtension/UNL/
