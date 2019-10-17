@@ -2189,14 +2189,16 @@ jobs:
         rm -fr UniNativeLinq-EditorExtension-Test/Plugins/UNL/Settings/
         rm -fr UniNativeLinq-EditorExtension/UNL/
         cp -fr UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/ UniNativeLinq-EditorExtension/UNL/
+        mkdir pack
     
     - uses: actions/download-artifact@master
       with:
         name: unitypackage_setting
-        path: UniNativeLinq-EditorExtension/UNL/Packages/
+        path: pack
     
     - name: Commit & Push
       run: |
+        cp -f pack/UniNativeLinq-Settings.unitypackage UniNativeLinq-EditorExtension/UNL/Packages/UniNativeLinq-Settings.unitypackage
         cd UniNativeLinq-EditorExtension
         rm -fr UNL/Settings/
         rm -f UNL/Settings.meta
