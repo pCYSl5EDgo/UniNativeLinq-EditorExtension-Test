@@ -54,8 +54,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Where
 
@@ -85,8 +84,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: FULL
 
@@ -94,7 +92,12 @@ jobs:
       run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath "UniNativeLinq-EditorExtension-Test" -executeMethod ExecuteMethods.CreateDll || exit 0
 
     - name: Copy DLL
-      run: cp -f "UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/Settings/UniNativeLinqDll.dll" "artifact/UniNativeLinqDll.dll"
+      run: |
+        ls -l UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/Settings/
+        ls -l UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/
+        ls -l UniNativeLinq-EditorExtension-Test/Assets/Plugins/
+        ls -l UniNativeLinq-EditorExtension-Test/Assets/
+        cp -f "UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/Settings/UniNativeLinqDll.dll" "artifact/UniNativeLinqDll.dll"
 
     - uses: actions/upload-artifact@master
       with:
@@ -154,8 +157,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Union
 
@@ -229,8 +231,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetMin
 
@@ -252,8 +253,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetMax
 
@@ -338,8 +338,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetLast
 
@@ -361,8 +360,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetSingle
 
@@ -446,8 +444,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetElementAt
 
@@ -469,8 +466,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetFirst
 
@@ -555,8 +551,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TakeWhile
 
@@ -578,8 +573,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Sum
 
@@ -664,8 +658,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Take
 
@@ -687,8 +680,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TakeLast
 
@@ -773,8 +765,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: SkipLast
 
@@ -796,8 +787,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: SkipWhile
 
@@ -882,8 +872,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: SelectMany
 
@@ -905,8 +894,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Skip
 
@@ -991,8 +979,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Reverse
 
@@ -1014,8 +1001,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Select
 
@@ -1099,8 +1085,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Range
 
@@ -1122,8 +1107,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Repeat
 
@@ -1207,8 +1191,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: MinMax
 
@@ -1230,8 +1213,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: OrderBy
 
@@ -1315,8 +1297,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Intersect
 
@@ -1338,8 +1319,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Join
 
@@ -1423,8 +1403,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: GroupBy
 
@@ -1445,8 +1424,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: GroupJoin
 
@@ -1530,8 +1508,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Distinct
 
@@ -1553,8 +1530,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Except
 
@@ -1639,8 +1615,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Count
 
@@ -1662,8 +1637,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: DefaultIfEmpty
 
@@ -1747,8 +1721,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Concat
 
@@ -1770,8 +1743,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Contains
 
@@ -1856,8 +1828,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Any
 
@@ -1879,8 +1850,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Average
 
@@ -1965,8 +1935,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Aggregate
 
@@ -1988,8 +1957,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: All
 
@@ -2075,8 +2043,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: Zip
 
@@ -2098,8 +2065,7 @@ jobs:
         cd UniNativeLinq-EditorExtension-Test/Assets # UniNativeLinq-EditorExtension-Test/Assets
         rm -f Tests.meta
         rm -rf Tests
-        rm -rf Plugins/UNL/Settings
-        cp -a "../Data~/$TEST/Settings" Plugins/UNL/
+        cp -f -a "../Data~/$TEST/Settings" Plugins/UNL/
       env:
         TEST: TryGetFirstIndexOf
 
