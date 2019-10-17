@@ -22,7 +22,11 @@ public static class ExecuteMethods
 
         var path = Path.Combine(Application.dataPath, root);
         var assets = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories)
-            .Where(x => Path.GetExtension(x) == ".cs")
+            .Where(x =>
+            {
+                var extension = Path.GetExtension(x);
+                return extension == ".cs" || extension == ".asset" || extension == ".bytes";
+            })
             .Select(x => "Assets" + x.Replace(Application.dataPath, "").Replace(@"\", "/"))
             .ToArray();
 
