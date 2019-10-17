@@ -16,7 +16,7 @@ namespace UniNativeLinq.Editor
             {
                 if(!(_instance is null))
                     return _instance;
-                var assetPath = AssetDatabase.GUIDToAssetPath("Assets/Plugins/UNL/Settings/GlobalSettings.asset");
+                var assetPath = "Assets/Plugins/UNL/Settings/GlobalSettings.asset";
                 _instance = AssetDatabase.LoadAssetAtPath<GlobalSettings>(assetPath);
                 return _instance;
             }
