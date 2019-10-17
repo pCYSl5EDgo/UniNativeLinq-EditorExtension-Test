@@ -48,7 +48,11 @@ public static class ExecuteMethods
 
         var path = Path.Combine(Application.dataPath, root);
         var assets = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories)
-            .Where(x => Path.GetExtension(x) == ".asset")
+            .Where(x =>
+            {
+                string extension = Path.GetExtension(x);
+                return extension == ".asset" || extension == ".dll";
+            })
             .Select(x => "Assets" + x.Replace(Application.dataPath, "").Replace(@"\", "/"))
             .ToArray();
 
