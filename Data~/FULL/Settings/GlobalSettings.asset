@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GlobalSettings
   m_EditorClassIdentifier: 
   EnableNullCheckOnRuntime: 1
+  EnableRelaxedUnsafeAsRefEnumerable: 1

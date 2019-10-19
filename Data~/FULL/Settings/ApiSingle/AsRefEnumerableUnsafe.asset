@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbcd04e384274e42b36563ebcd4c4c1, type: 3}
+  m_Name: AsRefEnumerableUnsafe
+  m_EditorClassIdentifier: 
+  Name: AsRefEnumerableUnsafe
+  Description: 
+  EnabledArray:
+  - Enumerable: NativeArray<T>
+    Enabled: 1
+  - Enumerable: T[]
+    Enabled: 1
+  <RelatedEnumerableArray>k__BackingField: []
+  <IsHided>k__BackingField: 0
+  <ExcludeEnumerableArray>k__BackingField: []
