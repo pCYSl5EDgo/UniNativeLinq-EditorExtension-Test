@@ -69,7 +69,7 @@ jobs:
         ls -l UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/
         ls -l UniNativeLinq-EditorExtension-Test/Assets/Plugins/
         ls -l UniNativeLinq-EditorExtension-Test/Assets/
-        cp -f "UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/Settings/UniNativeLinqDll.dll" "artifact/UniNativeLinqDll.dll"
+        cp -f "UniNativeLinq-EditorExtension-Test/Assets/Plugins/UNL/Settings/UniNativeLinq.dll" "artifact/UniNativeLinq.dll"
 
     - uses: actions/upload-artifact@master
       with:

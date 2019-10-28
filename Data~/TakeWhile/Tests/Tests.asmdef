@@ -13,7 +13,7 @@
     "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
-        "UniNativeLinqDll.dll"
+        "UniNativeLinq.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": []
