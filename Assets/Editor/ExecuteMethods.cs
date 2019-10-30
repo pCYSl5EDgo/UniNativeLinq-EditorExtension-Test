@@ -18,7 +18,7 @@ public static class ExecuteMethods
     {
         // configure
         var root = "Plugins/UNL";
-                var exportPath = Path.Combine(Application.dataPath + "/", "../../artifact_unity/UniNativeLinq.unitypackage");
+        var exportPath = Path.Combine(Application.dataPath + "/", "../../artifact_unity/UniNativeLinq.unitypackage");
 
         var path = Path.Combine(Application.dataPath, root);
         var assets = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories)
